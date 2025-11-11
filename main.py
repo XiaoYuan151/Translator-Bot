@@ -7,9 +7,7 @@ from model import get_translation
 
 load_dotenv()
 TOKEN = getenv("TOKEN")
-client = Client(intents=Intents.all(), proxy="http://127.0.0.1:10808")
-general = None
-general_cn = None
+client = Client(intents=Intents.all())
 
 
 @client.event
@@ -22,8 +20,6 @@ async def on_ready():
 
 @client.event
 async def on_message(message: Message):
-    global general
-    global general_cn
     if message.author == client.user:
         return
     if isinstance(message.channel, DMChannel):
@@ -34,13 +30,20 @@ async def on_message(message: Message):
     if message.channel == general:
         response = get_translation(message.content, 1)
         print(response)
-        await general_cn.send(
-            f"{message.author}: {response}\n[Jump to Message](https://discord.com/channels/{message.channel.guild.id}/{message.channel.id}/{message.id})")
+        if response == "None":
+            await general.send("Someone tell XiaoYuan151 there is a problem with my AI.")
+            return
+        await general_cn.send(f"{message.author.display_name}: {response}")
+        return
     if message.channel == general_cn:
         response = get_translation(message.content, 0)
         print(response)
-        await general.send(
-            f"{message.author}: {response}\n[Jump to Message](https://discord.com/channels/{message.channel.guild.id}/{message.channel.id}/{message.id})")
+        if response == "None":
+            await general.send("Someone tell XiaoYuan151 there is a problem with my AI.")
+            return
+        await general.send(f"{message.author.display_name}: {response}")
+        return
+        # \n[Jump to Message](https://discord.com/channels/{message.channel.guild.id}/{message.channel.id}/{message.id})
 
 
 @client.event
