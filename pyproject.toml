@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "aiohttp>=3.13.2",
     "audioop-lts>=0.2.2",
     "openai>=2.7.2",
     "py-cord>=2.6.1",

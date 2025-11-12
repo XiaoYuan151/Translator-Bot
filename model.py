@@ -5,7 +5,7 @@ from openai import OpenAI
 
 load_dotenv()
 API_KEY = getenv("OPENAI_API_KEY")
-client = OpenAI()
+client = OpenAI(api_key=API_KEY)
 
 
 def get_translation(input: str, lang: int = 0) -> str:
