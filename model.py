@@ -20,3 +20,8 @@ def get_translation(input: str, lang: int = 0) -> str:
     except Exception as e:
         print(str(e))
     return "None"
+
+
+if __name__ == "__main__":
+    while True:
+        print(f'Output: {get_translation(input("Input: "), 0)}')
